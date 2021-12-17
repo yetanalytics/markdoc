@@ -7,4 +7,12 @@
  :aliases
  {:convert {:exec-fn   com.yetanalytics.markdoc/convert
             :exec-args {:in-root  "dev-resources/md-samples/"
-                        :out-root "target/sample/doc/"}}}}
+                        :out-root "target/sample/doc/"}}
+
+  :test    {:extra-paths ["src/test"]
+            :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
+                         io.github.cognitect-labs/test-runner
+                         {:git/url "https://github.com/cognitect-labs/test-runner"
+                          :sha "dd6da11611eeb87f08780a30ac8ea6012d4c05ce"}
+                         org.clojure/tools.logging {:mvn/version "1.1.0"}}
+            :exec-fn cognitect.test-runner.api/test}}}

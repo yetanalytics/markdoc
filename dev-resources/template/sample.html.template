@@ -5,9 +5,10 @@
     </head>
     <body>
       <div id="container">
+        <!-- Template Test Code: 0F2520DF2A2412F6B4A6CDCAB3B76FACCD24A496 -->
         {{content|safe}}
         <span class="build">Build: {{sha | safe}}</span>
-        <span>custom arg ':a' {{a}}
+        <span>Custom Value: {{custom}}</span>
       </div>
     </body>
 </html>
