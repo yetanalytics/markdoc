@@ -1,0 +1,11 @@
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+.cpcache/
+/tmp/
+.DS_Store
+
