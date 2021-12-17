@@ -1,7 +1,8 @@
 (ns com.yetanalytics.markdoc-test
   (:require [clojure.test :refer :all]
             [clojure.tools.logging :as log]
-            [com.yetanalytics.markdoc :as md]))
+            [com.yetanalytics.markdoc :as md]
+            [clojure.java.io :as io]))
 
 (deftest convert-md-test
   (testing "converts basic MD to HTML"
@@ -21,13 +22,20 @@
            (md/md->html "[Link](another.notmd)")))))
 
 
+(defn delete-directory-recursive
+  "Recursively delete a directory."
+  [^java.io.File file]
+  (when (.isDirectory file)
+    (run! delete-directory-recursive (.listFiles file)))
+  (io/delete-file file))
+
 (deftest convert-dir-test
   (md/convert {:in-root "dev-resources/md-samples"
-               :out-root "tmp/output"
+               :out-root "tmp/test-output"
                :template-file "dev-resources/template/sample.html.template"
                :template-vars {:custom "C8D470E5EB066B3671EF212BD61C19BC744FD92D"}})
-  (let [output-1 (slurp "tmp/output/1.html")
-        output-2 (slurp "tmp/output/2.html")]
+  (let [output-1 (slurp "tmp/test-output/1.html")
+        output-2 (slurp "tmp/test-output/2.html")]
     (testing "output files contain respective MD content"
       (is (clojure.string/includes? output-1
                                     "94672188B2C6B01FF0A6BF4CEAA781DD4C28E120"))
@@ -40,5 +48,6 @@
       (is (clojure.string/includes? output-1
                                     "C8D470E5EB066B3671EF212BD61C19BC744FD92D")))
     (testing "asset was copied"
-      (is (clojure.string/includes? (slurp "tmp/output/assets/an-asset.txt")
-                                    "90D8B1756D8566FC486C3F78B191969DB9ECE299")))))
+      (is (clojure.string/includes? (slurp "tmp/test-output/assets/an-asset.txt")
+                                    "90D8B1756D8566FC486C3F78B191969DB9ECE299"))))
+  (delete-directory-recursive (io/file "tmp/test-output")))

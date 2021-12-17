@@ -72,7 +72,6 @@
 (defn fill-template
   "Add `content` to the HTML doc template."
   [content template-file & {:keys [template-vars]}]
-  (clojure.pprint/pprint template-vars)
   (selm-parser/render (get-template template-file)
                       (merge {:content content
                               :sha @git-sha}
