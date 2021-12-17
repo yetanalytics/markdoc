@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+    <head>
+        <title>MarkDoc Selmer Template</title>
+    </head>
+    <body>
+      <div id="container">
+        {{content|safe}}
+        <span class="build">Build: {{sha | safe}}</span>
+        <span>custom arg ':a' {{a}}
+      </div>
+    </body>
+</html>

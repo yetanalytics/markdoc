@@ -58,7 +58,7 @@
             first
             :id
             (.getName)))
-      (catch Exception _ "No build number found."))))
+      (catch Exception _ "No SHA found."))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markdown file -> HTML file
@@ -71,10 +71,12 @@
 
 (defn fill-template
   "Add `content` to the HTML doc template."
-  [content template-file]
+  [content template-file & {:keys [template-vars]}]
+  (clojure.pprint/pprint template-vars)
   (selm-parser/render (get-template template-file)
-                      {:content content
-                       :sha @git-sha}))
+                      (merge {:content content
+                              :sha @git-sha}
+                             template-vars)))
 
 (defn all-paths-seq
   "Return a seq of all files located in `root`."
@@ -90,7 +92,7 @@
 
 (defn convert
   "Given Markdown docs at `in-root`, create HTML docs in `out-root`."
-  [{:keys [in-root out-root template-file]}]
+  [{:keys [in-root out-root template-file template-vars]}]
   (let [in-root-regex (re-pattern (format "^%s" in-root))]
     (doseq [^String md-path (all-paths-seq in-root)
             :let [^String html-path (cstr/replace md-path
@@ -104,7 +106,8 @@
         (let [doc-html (-> md-path slurp md->html)
               ;; Process with template if present
               html (cond-> doc-html
-                     template-file (fill-template template-file))]
+                     template-file (fill-template template-file
+                                                  :template-vars template-vars))]
           (spit (io/file (md-ext->html-ext html-path)) html))
         ;; Simply copy other, non-HTML files (e.g. images)
         (io/copy (io/file md-path)

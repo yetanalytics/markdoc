@@ -6,6 +6,5 @@
         selmer/selmer             {:mvn/version "1.12.44"}}
  :aliases
  {:convert {:exec-fn   com.yetanalytics.markdoc/convert
-            :exec-args {:in-root  "doc/"
-                        :out-root "target/bundle/doc/"
-                        :template-file nil}}}}
+            :exec-args {:in-root  "dev-resources/md-samples/"
+                        :out-root "target/sample/doc/"}}}}
