@@ -72,9 +72,9 @@
   "Add `content` to the HTML doc template."
   [content template-file & {:keys [template-vars]}]
   (selm-parser/render (get-template template-file)
-                      (merge {:content content
-                              :sha @git-sha}
-                             template-vars)))
+                      (merge template-vars
+                             {:content content
+                              :sha @git-sha})))
 
 (defn all-paths-seq
   "Return a seq of all files located in `root`."
