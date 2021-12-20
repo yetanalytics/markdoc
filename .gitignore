@@ -8,4 +8,6 @@
 .cpcache/
 /tmp/
 .DS_Store
-
+.calva
+.clj-kondo/.cache
+.lsp

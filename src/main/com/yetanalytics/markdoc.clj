@@ -64,7 +64,6 @@
 ;; Markdown file -> HTML file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (def get-template
   (memoize (fn [template-file]
              (slurp template-file))))
@@ -92,6 +91,8 @@
 (defn convert
   "Given Markdown docs at `in-root`, create HTML docs in `out-root`."
   [{:keys [in-root out-root template-file template-vars]}]
+  (assert (some? in-root) "You must provide a Markdown source directory :in-root")
+  (assert (some? out-root) "You must provice a destination HTML directory :out-root")
   (let [in-root-regex (re-pattern (format "^%s" in-root))]
     (doseq [^String md-path (all-paths-seq in-root)
             :let [^String html-path (cstr/replace md-path
