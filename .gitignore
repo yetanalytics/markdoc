@@ -1,0 +1,13 @@
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+.cpcache/
+/tmp/
+.DS_Store
+.calva
+.clj-kondo/.cache
+.lsp
