@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup CI Environment
-        uses: yetanalytics/action-setup-env@<tag>
+        uses: yetanalytics/action-setup-env@v1.0.0
         with:
           java-version: "11"
           java-distribution: "temurin"
