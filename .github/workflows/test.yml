@@ -14,14 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      steps:
       - name: Setup CI Environment
         uses: yetanalytics/action-setup-env@<tag>
         with:
-            java-version: '11'
-            java-distribution: 'temurin'
-            node-version: '16'
-            clojure-version: '1.11.1.1165'
+          java-version: "11"
+          java-distribution: "temurin"
+          node-version: "16"
+          clojure-version: "1.11.1.1165"
 
       - name: Run make target ${{ matrix.target }}
         run: make ${{ matrix.target }}
