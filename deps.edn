@@ -1,9 +1,9 @@
 {:paths ["src/main"]
- :deps {org.clojure/clojure {:mvn/version "1.10.3"}
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         markdown-clj/markdown-clj {:mvn/version "1.10.5"}
         ;; git dep for pulling version
         clj-jgit/clj-jgit         {:mvn/version "1.0.1"}
-        selmer/selmer             {:mvn/version "1.12.44"}}
+        selmer/selmer             {:mvn/version "1.12.59"}}
  :aliases
  {:convert {:exec-fn   com.yetanalytics.markdoc/convert
             :exec-args {:in-root  "dev-resources/md-samples/"
